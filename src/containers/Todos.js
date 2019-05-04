@@ -1,6 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import { getData, addData, updateData } from './space';
-import { getUser, signOut } from './space/auth';
+
+import { getData, addData, updateData } from 'space';
+import { getUser, signOut } from 'space/auth';
+
+import TodoForm from 'containers/Forms/TodoForm';
+import Item from 'UI/Item';
 
 class Todos extends Component {
 
@@ -8,7 +12,6 @@ class Todos extends Component {
 		super( props );
 
 		this.state = {
-			text: '',
 			todos: null,
 		};
 	}
@@ -23,18 +26,11 @@ class Todos extends Component {
 		});
 	}
 
-	onSubmit = ( event ) => {
-		event.preventDefault();
-
-		if ( this.state.text != '' ) {
-			addData( 'todos', {
-				content: this.state.text,
-				done: false,
-			}).then( ( added ) => {
-				this.setState({ text: '' });
-				this.getTodos();
-			});
-		}
+	onSubmit = ( values ) => {
+		addData( 'todos', values )
+		.then( ( added ) => {
+			this.getTodos();
+		});
 	}
 
 	todoClick = ( todo ) => {
@@ -49,19 +45,14 @@ class Todos extends Component {
 		if ( this.state.todos != null && this.state.todos.length > 0 ) {
 			return <Fragment>
 				{ this.state.todos.map( todo => {
-					let style = {
-						padding: '0.55rem 0',
-						borderBottom: '1px solid #ccc',
-						cursor: 'pointer',
-					};
-
+					let style = {};
 					if ( todo.done ) {
 						style.textDecoration = 'line-through';
 					}
 
-					return <div style={ style } key={ todo._id } onClick={ e => this.todoClick( todo ) }>
+					return <Item style={ style } key={ todo._id } onClick={ e => this.todoClick( todo ) }>
 						{ todo.content }
-					</div>
+					</Item>
 				}) }
 			</Fragment>
 		}
@@ -76,28 +67,22 @@ class Todos extends Component {
 
 	render() {
 		return(
-			<div>
+			<Fragment>
 				<h3>Welcome, { getUser().name }</h3>
 
 				<div style={{ fontSize: '0.95rem', cursor: 'pointer' }} onClick={ this.logout }>
 					Sign out
 				</div>
 
-				<form onSubmit={ this.onSubmit } style={{ marginTop: '1rem' }}>
-					<input
-						type="text"
-						onChange={ event => { this.setState({ text: event.target.value }) }}
-						value={ this.state.text }
-						placeholder="Add todo"
-					/>
+				<div style={{ marginTop: '1rem' }}>
+					<TodoForm onSubmit={ this.onSubmit } />
+				</div>
 
-					<input type="submit" value="Submit" />
-				</form>
 
 				<div style={{ marginTop: '1rem' }}>
 					{ this.renderTodos() }
 				</div>
-			</div>
+			</Fragment>
 		);
 	}
 

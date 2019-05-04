@@ -7,10 +7,10 @@ import {
 	onAuthChange,
 } from './space/auth';
 
-import SignIn from './SignIn';
-import Todos from './Todos';
+import SignIn from './containers/SignIn';
+import Todos from './containers/Todos';
 
-import Content from './Content';
+import Content from './UI/Content';
 
 class App extends Component {
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import { updateUser } from './space';
-import { signInOrRegister } from './space/auth';
+import { updateUser } from 'space';
+import { signInOrRegister } from 'space/auth';
 
 class SignIn extends Component {
 
