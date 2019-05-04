@@ -1,68 +1,61 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React Space Todos
+A sample todo app using ReactJS, MongoDB and Space Cloud. Space Cloud is an open source backend server that exposes realtime APIs on any database.
 
-## Available Scripts
+## Features
+- Email Authentication
+- Authorization (User can view only his own todos)
+- Create, update and delete todos
 
-In the project directory, you can run:
+## Prerequisites
+- MongoDB
+- NodeJS
 
-### `npm start`
+## Steps
+Follow the below steps to get the todo app up and running
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Step 1: Download Space Cloud
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+The first step is to download the `space-cloud` binary. This binary is the server connecting to your database and creating the endpoints for it. 
 
-### `npm test`
+Download the binary for your OS from here:
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [Mac](https://spaceuptech.com/downloads/darwin/space-cloud.zip)
+- [Linux](https://spaceuptech.com/downloads/linux/space-cloud.zip)
+- [Windows](https://spaceuptech.com/downloads/windows/space-cloud.zip)
 
-### `npm run build`
+You can unzip the compressed archive
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**For Linux / Mac:** `unzip space-cloud.zip`
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+**For Windows:** Right click on the archive and select `extract here`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Make the `space-cloud` binary executable and add it to your path.
 
-### `npm run eject`
+**For Linux / Mac:** `chmod +x space-cloud`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Step 2: Download the config file
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Space Cloud needs a config file in order to function properly. It relies on the config file to load information like the database connection string, security rules, etc.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+You can find the config for this todo app [here](https://raw.githubusercontent.com/didair/react-space-todos/master/space-cloud.yaml). Feel free to explore the file.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Step 3: Start Space Cloud
 
-## Learn More
+You can start `space-cloud` with the following command. Make sure MongoDB is running before this step.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**For Linux / Mac:** `./space-cloud run --config space-cloud.yaml`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**For Windows:** `space-cloud.exe run --config space-cloud.yaml`
 
-### Code Splitting
+That's it. Your backend is up and running!
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+### Step 4: Run the React app
 
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+```bash
+git clone https://github.com/didair/react-space-todos.git
+cd react-space-todos
+npm install
+npm start
+```
+### Step 5: Play with the app!
+Open http://localhost:3000 in your browser and explore the app! Try creating some todos and deleting them.
