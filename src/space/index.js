@@ -124,7 +124,6 @@ export const addData = ( collection, data ) => {
 // Automatically appends the userId on the query
 export const updateData = ( collection, id, data ) => {
 	return new Promise( (resolve, reject) => {
-		console.log( 'test', API );
 		const user = getUser();
 
 		const find = and( cond( '_id', '==', id ), cond( 'userId', '==', user._id ));
@@ -133,7 +132,6 @@ export const updateData = ( collection, id, data ) => {
 		.where( find )
 		.set( data ).apply()
 		.then( res => {
-			console.log( 'test update', res );
 			if ( res.status === 200 ) {
 				resolve( res );
 
@@ -143,7 +141,6 @@ export const updateData = ( collection, id, data ) => {
 			reject( 0 );
 		})
 		.catch( ex => {
-			console.log( 'test update error', ex );
 			reject( ex );
 		});
 	});
