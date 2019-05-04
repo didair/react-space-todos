@@ -10,6 +10,12 @@ A sample todo app using ReactJS, MongoDB and Space Cloud. Space Cloud is an open
 - MongoDB
 - NodeJS
 
+## Serve front-end as a static app
+It's not necessary to run the webpack service for using this app. To get a
+static build of the front-end you simply run `npm run build` and
+create-react-app will build a production build in the `build` directory. This
+can be hosted pretty much anywhere.
+
 ## Steps
 Follow the below steps to get the todo app up and running
 
