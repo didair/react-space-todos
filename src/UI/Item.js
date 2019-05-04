@@ -6,9 +6,7 @@ const Item = ( props ) => {
 
 	return(
 		<div className="item" {...itemProps}>
-			<div className="item-content">
-				{ props.children }
-			</div>
+			{ props.children }
 		</div>
 	);
 };

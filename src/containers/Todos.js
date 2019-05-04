@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
-import { getData, addData, updateData } from 'space';
+import { getData, addData, updateData, removeData } from 'space';
 import { getUser, signOut } from 'space/auth';
 
 import TodoForm from 'containers/Forms/TodoForm';
@@ -37,7 +37,24 @@ class Todos extends Component {
 		updateData( 'todos', todo._id, {
 			done: ! todo.done,
 		}).then( () => {
-			this.getTodos();
+			todo.done = !todo.done;
+
+			this.setState({ });
+		});
+	}
+
+	onRemoveClick = ( todo ) => {
+		let { todos } = this.state;
+
+		removeData( 'todos', todo._id )
+		.then( () => {
+			let index = todos.findIndex( function( item ) {
+				return item._id == todo._id;
+			});
+
+			todos.splice( index, 1 );
+
+			this.setState({ todos });
 		});
 	}
 
@@ -50,8 +67,14 @@ class Todos extends Component {
 						style.textDecoration = 'line-through';
 					}
 
-					return <Item style={ style } key={ todo._id } onClick={ e => this.todoClick( todo ) }>
-						{ todo.content }
+					return <Item key={ todo._id }>
+						<div className="item-content" style={ style } onClick={ e => this.todoClick(todo)}>
+							{ todo.content }
+						</div>
+
+						<div title="Remove" className="item-remove" onClick={ e => this.onRemoveClick(todo)}>
+							x
+						</div>
 					</Item>
 				}) }
 			</Fragment>
