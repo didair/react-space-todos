@@ -145,3 +145,30 @@ export const updateData = ( collection, id, data ) => {
 		});
 	});
 }
+
+// Removes an entry in the db in collection
+// Finds by the id param
+// Automatically appends the userId on the query
+export const removeData = ( collection, id ) => {
+	return new Promise( (resolve, reject) => {
+		const user = getUser();
+
+		const find = and( cond( '_id', '==', id ), cond( 'userId', '==', user._id ));
+
+		db.delete( collection )
+		.where( find )
+		.apply()
+		.then( res => {
+			if ( res.status === 200 ) {
+				resolve( res );
+
+				return;
+			}
+
+			reject( 0 );
+		})
+		.catch( ex => {
+			reject( ex );
+		});
+	});
+}
