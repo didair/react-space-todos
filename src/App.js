@@ -9,6 +9,7 @@ import {
 
 import SignIn from './containers/SignIn';
 import Todos from './containers/Todos';
+import UserProfile from './containers/UserProfile';
 
 import Content from './UI/Content';
 
@@ -30,6 +31,10 @@ class App extends Component {
 		});
 	}
 
+	onProfileUpdate = () => {
+		this.setState({ loggedIn: isSignedIn() });
+	}
+
 	render() {
 		const { loggedIn } = this.state;
 
@@ -40,7 +45,12 @@ class App extends Component {
 				<header className="App-header">
 					<Content>
 						{ loggedIn ?
-							<Todos />
+							getUser().name != '' ?
+								<Todos />
+							:
+								<UserProfile
+									onUpdate={ this.onProfileUpdate }
+								/>
 						:
 							<SignIn />
 						}
@@ -49,7 +59,6 @@ class App extends Component {
 					<p>
 						Edit <code>src/App.js</code> and save to reload.
 					</p>
-
 				</header>
 			</div>
 		);

@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 
-import { updateUser } from 'space';
 import { signInOrRegister } from 'space/auth';
+
+import Button from 'UI/Button';
 
 class SignIn extends Component {
 
 	state = {
 		email: '',
 		password: '',
-		needsName: false,
-		name: '',
 		error: false,
 	};
 
@@ -21,10 +20,6 @@ class SignIn extends Component {
 		this.setState({ password: event.target.value });
 	}
 
-	onNameChange = ( event ) => {
-		this.setState({ name: event.target.value });
-	}
-
 	onSubmit = ( event ) => {
 		event.preventDefault();
 
@@ -33,42 +28,15 @@ class SignIn extends Component {
 			password: this.state.password,
 		})
 		.then( (data) => {
-			if ( data.user.name == '' ) {
-				//this.setState({ needsName: true });
-			}
+			// user was logged in
 		})
 		.catch( (ex) => {
 			// display login error here
-		});
-	}
-
-	onNameUpdate = ( event ) => {
-		event.preventDefault();
-
-		updateUser( this.state.profile._id, {'name': this.state.name } )
-		.then( res => {
-			console.log( 'user was updated', res );
+			this.setState({ error: true });
 		});
 	}
 
 	render() {
-		if ( this.state.needsName ) {
-			return(
-				<form onSubmit={ this.onNameUpdate }>
-					<h3>Heya!</h3>
-					<p>You still haven't told us your name!</p>
-
-					<input
-						type="text"
-						value={ this.state.name }
-						onChange={ this.onNameChange }
-						placeholder="Name" />
-
-					<input type="submit" value="Save!" />
-				</form>
-			);
-		}
-
 		return(
 			<form onSubmit={ this.onSubmit }>
 				{ this.state.error ?
@@ -92,7 +60,9 @@ class SignIn extends Component {
 					onChange={ this.onPassWordChange }
 				/>
 
-				<input type="submit" value="Login / Register" />
+				<Button type="submit">
+					Login / Register
+				</Button>
 			</form>
 		);
 	}

@@ -6,6 +6,7 @@ import {
 } from 'space-api';
 
 import { getUser, isSignedIn, getToken } from './auth';
+import { getAuthDetails, setAuthDetails } from './client/storage';
 
 export const app_id = 'cloud';
 
@@ -50,7 +51,15 @@ export const updateUser = ( id, data ) => {
 
 		db.updateOne('users').where( find )
 		.set( data ).apply()
-		.then(res => {
+		.then( res => {
+			if ( getUser()._id == id ) {
+				const user = getUser();
+				let authDetails = getAuthDetails();
+				authDetails.user = { ...user, ...data };
+
+				setAuthDetails( authDetails );
+			}
+
 			resolve( res );
 
 			return;
