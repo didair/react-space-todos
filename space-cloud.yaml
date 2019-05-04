@@ -1,0 +1,87 @@
+id: cloud
+secret: secret123123
+
+modules:
+    crud:
+        mongo:
+            conn: mongodb://localhost:27017
+            isPrimary: true
+            collections:
+                todos:
+                    isRealtimeEnabled: false
+                    rules:
+                        create:
+                            rule: authenticated
+
+                        read:
+                            rule: match
+                            eval: ==
+                            type: string
+                            f1: args.auth.id
+                            f2: args.find.userId
+
+                        update:
+                            rule: match
+                            eval: ==
+                            type: string
+                            f1: args.auth.id
+                            f2: args.find.userId
+
+                        delete:
+                            rule: match
+                            eval: ==
+                            type: string
+                            f1: args.auth.id
+                            f2: args.find.userId
+
+                users:
+                    isRealtimeEnabled: false
+                    rules:
+                        create:
+                            rule: allow
+
+                        read:
+                            rule: match
+                            eval: ==
+                            type: string
+                            f1: args.auth.id
+                            f2: args.find._id
+
+                        update:
+                            rule: match
+                            eval: ==
+                            type: string
+                            f1: args.auth.id  # jwt
+                            f2: args.find._id  # db
+
+                        delete:
+                            rule: deny
+
+    auth:
+        email:
+            enabled: true
+
+    faas:
+        enabled: false
+        nats: nats://localhost:4222
+
+    realtime:
+        enabled: false
+        kafka: localhost
+
+    fileStore:
+        enabled: false
+        storeType: local
+        conn: ./
+        rules:
+            rule1:
+                prefix: /
+                rule:
+                    create:
+                        rule: allow
+
+                    read:
+                        rule: allow
+
+                    delete:
+                        rule: allow
