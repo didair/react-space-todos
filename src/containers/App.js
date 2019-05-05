@@ -5,13 +5,13 @@ import {
 	isSignedIn,
 	getUser,
 	onAuthChange,
-} from './space/auth';
+} from 'space/auth';
 
-import SignIn from './containers/SignIn';
-import Todos from './containers/Todos';
-import UserProfile from './containers/UserProfile';
+import SignIn from './SignIn';
+import Todos from './Todos';
+import UserProfile from './UserProfile';
 
-import Content from './UI/Content';
+import Content from 'UI/Content';
 
 class App extends Component {
 
