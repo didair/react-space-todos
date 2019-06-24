@@ -1,3 +1,5 @@
+[![DeepScan grade](https://deepscan.io/api/teams/4311/projects/6080/branches/48660/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=4311&pid=6080&bid=48660)
+
 # React Space Todos
 A sample todo app using ReactJS, MongoDB and Space Cloud. Space Cloud is an open source backend server that exposes realtime APIs on any database.
 
