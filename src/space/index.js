@@ -1,11 +1,10 @@
 import {
 	API,
 	and,
-	or,
 	cond,
 } from 'space-api';
 
-import { getUser, isSignedIn, getToken } from './auth';
+import { getUser, isSignedIn } from './auth';
 import { getAuthDetails, setAuthDetails } from './client/storage';
 
 export const app_id = 'cloud';
